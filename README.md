@@ -46,7 +46,7 @@ represent data collected from the accelerometers from the Samsung Galaxy S smart
         - Appropriately label the data set with descriptive variable names.
         
         
-        - From the data set in the prior step, creates a 2nd, independent tidy data set with the average of each variable for           each activity and each subject.
+        - From the data set in the prior step, creates a 2nd, independent tidy data set with the average of each variable for each activity and each subject.
         
         
 - FinalStep_Data.txt: a tidy dataset created using the run_analysis.R script
