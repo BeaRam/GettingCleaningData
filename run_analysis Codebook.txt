@@ -1,0 +1,103 @@
+﻿The run_analysis.R script assists in preparing a raw data set by cleaning and tidying it into a tidy data set. 
+
+
+The following codebook :
+* Provides the descriptions of each variable in the script
+* Delineates the steps to prepare your tidy data set.
+
+
+Download the dataset
+   * Dataset downloaded and extracted under the folder called UCI HAR Dataset
+
+
+Assign each data frame to respective variables
+   * Features <- features.txt 
+      * Dimensions: 561 rows, 2 columns 
+      * Data: The features selected for this database come from the accelerometer & gyroscope 3-axial raw signals tAcc-XYZ & tGyro-XYZ.
+
+
+   * Activities <- activity_labels.txt  
+      * Dimensions: 6 rows, 2 columns 
+      * Data: List of activities performed when the corresponding measurements were taken & its respective codes
+
+
+   * Subject_Test <- test/subject_test.txt : 
+      * Dimensions: 2947 rows, 1 column 
+      * Data: contains test data of volunteer test subjects being observed
+
+
+   * X_Test <- test/X_test.txt 
+      * Dimensions: 2947 rows, 561 columns 
+      * Data: contains recorded features test data
+
+
+   * Y_Test <- test/y_test.txt 
+      * Dimensions: 2947 rows, 1 columns 
+      * Data: contains test data of activities dataframe’s code labels
+
+
+   * Subject_Train <- test/subject_train.txt 
+      * Dimensions: 7352 rows, 1 column 
+      * Data: contains train data of volunteer subjects being observed
+
+
+   * X_Train <- test/X_train.txt 
+      * Dimensions: 7352 rows, 561 columns 
+      * Data: contains recorded features train data
+
+
+   * Y_Train <- test/y_train.txt : 
+      * Dimensions: 7352 rows, 1 columns 
+      * Data: contains train data of activities dataframe’s code labels
+
+
+
+1. Merges the training & the test sets to create one data set
+   * X 
+      * Dimensions: 10299 rows, 561 columns 
+      * Creation:  Row binding the X_Train & X_Test Datasets using rbind() 
+
+
+   * Y 
+      * Dimensions: 10299 rows, 1 column
+      * Creation:   Row binding the Y_Train & Y_Test Datasets using rbind()
+
+
+   * Subs
+      * Dimensions: 10299 rows, 1 column
+      * Creation: Row binding the Subject_Train & Subject_Test Datasets using rbind()
+
+
+   * Merge_All 
+      * Dimensions: 10299 rows, 563 column
+      * Creation: Use column binding to merge, Subs, Y, & X using cbind() 
+
+Extracts only the measurements on the mean and standard deviation for each measurement
+   * TidyDat
+   * Dimensions: 10299 rows, 88 columns 
+   * Creation: Use subsetting on Merge_All, to extract the columns: 
+   * subject, 
+   * code,  
+   * the mean for each measurement
+   * the standard deviation (std) for each measurement
+
+
+Use the descriptive activity names to name the activities in Tidydat 
+   * Based on TidyDat$code column will be replaced with the respective activity names from the Activities dataset
+
+Appropriately labels the data set with descriptive variable names
+      * code column in TidyDat renamed into activities
+      * Acc in column’s name replaced by Accelerometer
+      * Gyro in column’s name replaced by Gyroscope
+      * BodyBody in column’s name replaced by Body
+      * Mag in column’s name replaced by Magnitude
+      * Everything that starts with character f in column’s name replaced by Frequency
+      * Everything that starts with character t in column’s name replaced by Time
+
+From the data set in the prior step, create a 2nd, independent tidy data set with the average of each variable for each activity & each subject.
+         * FinalStep_Data
+         * Dimensions: 180 rows, 88 columns
+         * Creation: created by summarising TidyDat  - take the means of each variable for each activity & each subject, after grouped_by subject & activity.
+
+
+         * Export FinalStep_Data into FinalStep_Data.txt file
